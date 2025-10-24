@@ -8,23 +8,23 @@ export const CreateNewUser = mutation({
     imageUrl: v.string(),
   },
   handler: async (ctx, args) => {
-    const user = await ctx.db
+    const users = await ctx.db
       .query("users")
       .filter(q => q.eq(q.field("email"), args.email))
       .collect();
 
-    if (user?.length === 0) {
+    if (users?.length === 0) {
       const data = {
         name: args.name,
         email: args.email,
         imageUrl: args.imageUrl,
       };
-      const result = await ctx.db.insert("users", data);  
+      const result = await ctx.db.insert("users", data);
       return {
         ...data,
         id: result,
       };
     }
-    return user[0];
+    return users[0];
   },
 });

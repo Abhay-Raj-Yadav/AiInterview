@@ -8,7 +8,7 @@ function header() {
        <img src="/logo.svg" alt="Logo" width={48} height={48} />
        <h1 className="text-base font-bold md:text-2xl">AI INTERVIEW PREP</h1>
       </div>
-      <Link href={"/dashboard"}>
+     <Link href={"/sign-in"}> 
        <Button>
         LOGIN
        </Button>

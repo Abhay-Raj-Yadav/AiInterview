@@ -63,7 +63,7 @@ function HERO() {
           }}
           className="relative z-10 mt-8 flex flex-wrap items-center justify-center gap-4"
         >
-          <Link href={"/dashboard"}>
+          <Link href={"/sign-in"}>
           <Button>
             Explore Now
           </Button>
