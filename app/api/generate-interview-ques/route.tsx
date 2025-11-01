@@ -2,11 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Imagekit from "imagekit";
 import { buffer } from "stream/consumers";
 import axios from "axios";
-var imagekit = new Imagekit({
-    publicKey : "your_public_api_key",
-    privateKey : "your_private_api_key",
-    urlEndpoint : "https://ik.imagekit.io/your_imagekit_id/"
-});
+// Removed the hardcoded 'imagekit' instance which was causing a potential failure.
+// The instance below, configured with environment variables, is the correct one.
 
 
 export const imageKit=new Imagekit({
@@ -28,7 +25,11 @@ export  async function POST(request: NextRequest) {
       console.log("file", formData);
     const arrayBuffer=await file.arrayBuffer();
     const buffer=Buffer.from(arrayBuffer);
-    const uploadResponse=await imagekit.upload({
+
+
+    
+    // Corrected to use the exported 'imageKit' instance (uppercase 'K')
+    const uploadResponse=await imageKit.upload({
         file:buffer,
         fileName:`upload-${Date.now()}.pdf`,
         isPrivateFile:false,
@@ -40,9 +41,20 @@ export  async function POST(request: NextRequest) {
     console.log(result.data);
 
 
-        return NextResponse.json(result.data);
+     return NextResponse.json({
+        questions: result.data?.message?.content?.questions,
+        resumeUrl:uploadResponse?.url
+     }
+       
+    );
+
     }catch(error:any){
-        console.log('upload-error',error);
+        console.error('upload-error',error);
+        // Added explicit return for the error case to prevent implicit 500
+        return NextResponse.json(
+            { error: 'Internal Server Error during file upload/processing', details: error.message },
+            { status: 500 }
+        );
     }
 
 }

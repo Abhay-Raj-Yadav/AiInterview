@@ -7,4 +7,13 @@ export default defineSchema({
     email: v.string(),
     imageUrl: v.string(),
   }),
+  // NEW TABLE ADDED HERE
+  InterviewSessionTable: defineTable({
+    
+    resumeUrl: v.string(), // URL to the uploaded resume
+    userId:v.id("users"),
+    status:v.string(),
+    interviewQuestions: v.any(),
+    }),
+  
 });
