@@ -29,7 +29,6 @@ export  async function POST(request: NextRequest) {
 
 
     
-    // Corrected to use the exported 'imageKit' instance (uppercase 'K')
     const uploadResponse=await imageKit.upload({
         file:buffer,
         fileName:`upload-${Date.now()}.pdf`,
@@ -43,7 +42,7 @@ export  async function POST(request: NextRequest) {
 
 
      return NextResponse.json({
-        questions: result.data?.message?.content?.questions,
+        questions: result.data[0]?.message?.content?.interviewQuestions,
         resumeUrl: uploadResponse?.url
     });
     }else{
@@ -71,3 +70,5 @@ export  async function POST(request: NextRequest) {
     }
 
 }
+
+

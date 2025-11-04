@@ -50,8 +50,8 @@ const CreateInterviewDialog: React.FC = () => {
     const body = new FormData();
     body.append("file", file ?? '');
     body.append("formState", JSON.stringify(formState));
-    const jobTitle = formState.jobTitle ?? '';
-    const jobDescription = formState.jobDescription ?? '';
+    const jobTitle = formState?.jobTitle;
+    const jobDescription = formState?.jobDescription;
     body.append("jobTitle", jobTitle);
     body.append("jobDescription", jobDescription);
 
@@ -64,9 +64,11 @@ const CreateInterviewDialog: React.FC = () => {
       }
 
       await saveInterviewQuestion({
-        questions,
-        resumeUrl,
+        questions: questions || null,
+        resumeUrl: resumeUrl || null,
         uid: userDetail._id,
+        jobTitle: formState.jobTitle || "",
+        jobDescription: formState.jobDescription || "",
       });
 
       showMessage("Success", "Interview questions generated successfully!");
