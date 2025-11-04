@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { UserDetailContext } from '@/context/UserDetailContext';
 import { api } from '@/convex/_generated/api';
 import { useUser } from '@clerk/nextjs';
@@ -8,31 +8,31 @@ import React, { useEffect, useState } from 'react';
 function Provider({ children }: any) {
   const { user } = useUser();
   const createUser = useMutation(api.users.CreateNewUser);
-  const [userDetails, setUserDetails] = useState<any>();
+  const [userDetail, setUserDetail] = useState<any>();
 
   useEffect(() => {
-    if (user) {
-      createUser({
-        email: user.primaryEmailAddress?.emailAddress ?? "",
-        name: user.fullName ?? "",
-        imageUrl: user.imageUrl ?? "",
-      });
+    async function handleUserCreation() { 
+      if (user && user.primaryEmailAddress?.emailAddress) {
+        const newUser = await createUser({ 
+          email: user.primaryEmailAddress.emailAddress,
+          name: user.fullName ?? "",
+          imageUrl: user.imageUrl ?? "",
+        });
+        setUserDetail(newUser); 
+      }
     }
-
-    // Only run when user changes
+    handleUserCreation();
   }, [user]);
 
   return (
-    <UserDetailContext.Provider value={{userDetails, setUserDetails}}>
-    <div>
-      {children}
-    </div>
+    <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
+      <div>{children}</div>
     </UserDetailContext.Provider>
   );
 }
 
 export default Provider;
 
-export const useUserDetailContext=()=>{
+export const useUserDetailContext = () => {
   return React.useContext(UserDetailContext);
-}
+};

@@ -9,11 +9,13 @@ export default defineSchema({
   }),
   // NEW TABLE ADDED HERE
   InterviewSessionTable: defineTable({
-    
-    resumeUrl: v.string(), // URL to the uploaded resume
+
+    resumeUrl:v.optional(v.string()), // URL to the uploaded resume
     userId:v.id("users"),
     status:v.string(),
     interviewQuestions: v.any(),
+    jobTitle:v.optional(v.string()),
+    jobDescription:v.optional(v.string()),
     }),
   
 });

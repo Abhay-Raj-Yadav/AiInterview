@@ -7,15 +7,8 @@ const MenuOption=[
     {
         name:'Dashboard',
         path:'/dashboard'
-    },
-    {
-        name:'Upgrade',
-        path:'/upgrade'
-    },
-    {
-        name:'How it works',
-        path:'/how-it-works'
     }
+ 
 ]
 
 function AppHeader() {
