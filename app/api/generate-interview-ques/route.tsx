@@ -21,7 +21,7 @@ export  async function POST(request: NextRequest) {
     const jobTitle=formData.get('jobTitle') ;
     const jobDescription=formData.get('jobDescription') ;
 
-    if(file){
+    if(file  && file.size>0){
     
       console.log("file", formData);
     const arrayBuffer=await file.arrayBuffer();

@@ -6,7 +6,7 @@ export const SaveInterviewQuestions = mutation({
   args: {
     questions:v.any(),
     uid: v.id("users"),
-    resumeUrl: v.string(),
+    resumeUrl: v.optional(v.string()),
   
   },
  

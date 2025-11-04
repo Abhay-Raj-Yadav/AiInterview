@@ -40,6 +40,11 @@ const CreateInterviewDialog: React.FC = () => {
   };
 
   const onSubmit = async () => {
+
+    if (!userDetail) {
+      showMessage("Error", "User details not loaded yet. Please try again in a moment.");
+      return;
+    }
     
     setLoading(true);
     const body = new FormData();
@@ -54,7 +59,7 @@ const CreateInterviewDialog: React.FC = () => {
       const res = await axios.post("/api/generate-interview-ques", body);
       const { questions, resumeUrl } = res.data;
 
-      if (!questions || !resumeUrl) {
+      if (!questions ) {
         throw new Error("Invalid response from the server");
       }
 
