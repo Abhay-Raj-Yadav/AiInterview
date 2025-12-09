@@ -1,42 +1,19 @@
-// import { mutation } from "./_generated/server";
-// import { v } from "convex/values";
-// import { Id } from "./_generated/dataModel";
 
-// export const SaveInterviewQuestions = mutation({
-//   args: {
-//     questions:v.optional(v.any()),
-//     uid: v.id("users"),
-//     resumeUrl: v.optional(v.string()),
-  
-//   },
- 
-//   handler: async (ctx, args) => {
-//     // Map the string array of questions to the object structure needed for the DB
-
-//     const result = await ctx.db.insert("InterviewSessionTable", {
-//        interviewQuestions: args.questions,
-//        userId: args.uid,
-//        resumeUrl: args.resumeUrl,
-//        status: 'draft'
-//     });
-//     return result;
-//   },
-// });
-
-
-
-
+// Force a re-push
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
-import { Id } from "./_generated/dataModel";
+// ... (rest of your file)
+
+
 
 export const SaveInterviewQuestions = mutation({
   args: {
-    questions: v.optional(v.any()), // Use v.optional() to prevent errors if questions are null
+
+    questions: v.array(v.any()), 
     uid: v.id("users"),
     resumeUrl: v.optional(v.string()),
-    jobTitle: v.optional(v.string()),     // <-- ADD THIS
-    jobDescription: v.optional(v.string()), // <-- ADD THIS
+    jobTitle: v.optional(v.string()),   
+    jobDescription: v.optional(v.string()), 
   },
  
   handler: async (ctx, args) => {
@@ -45,8 +22,8 @@ export const SaveInterviewQuestions = mutation({
        userId: args.uid,
        resumeUrl: args.resumeUrl,
        status: 'draft',
-       jobTitle: args.jobTitle,         // <-- ADD THIS
-       jobDescription: args.jobDescription, // <-- ADD THIS
+       jobTitle: args.jobTitle,        
+       jobDescription: args.jobDescription,
     });
     return result;
   },

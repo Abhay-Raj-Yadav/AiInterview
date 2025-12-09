@@ -65,7 +65,7 @@ const CreateInterviewDialog: React.FC = () => {
 
       await saveInterviewQuestion({
         questions: questions || null,
-        resumeUrl: resumeUrl || null,
+        resumeUrl: resumeUrl || "",
         uid: userDetail._id,
         jobTitle: formState.jobTitle || "",
         jobDescription: formState.jobDescription || "",
